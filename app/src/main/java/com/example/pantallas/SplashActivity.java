@@ -1,15 +1,15 @@
 package com.example.pantallas;
 
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
-    private static final int DURACION_SPLASH = 2000; // 2 segundos
+    private static final int DURACION_SPLASH = 1500; // 1.5 segundos
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
