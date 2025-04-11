@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Pantallas</string>
+
+    <string-array name="categorias_array">
+        <item>Deportes</item>
+        <item>Música</item>
+        <item>Cine</item>
+    </string-array>
 </resources>
