@@ -1,58 +1,46 @@
 package com.example.pantallas;
 
-import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-
-import androidx.activity.EdgeToEdge;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
-
-    EditText edt_usuario;
-    Button btn_iniciar;
-public static final String dataUserCache = "dataUser";
-    private static final int  mode_Private = Context.MODE_PRIVATE;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-
-
+    EditText nombreEditText, edadEditText;
+    Spinner categoriaSpinner;
+    Button guardarBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        edt_usuario = findViewById(R.id.edt_usuario);
-        btn_iniciar = findViewById(R.id.btn_iniciar);
+        nombreEditText = findViewById(R.id.editNombre);
+        edadEditText = findViewById(R.id.editEdad);
+        categoriaSpinner = findViewById(R.id.spinnerCategoria);
+        guardarBtn = findViewById(R.id.btnGuardar);
 
-        sharedPreferences = getSharedPreferences(dataUserCache,mode_Private);
-        editor = sharedPreferences.edit();
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.categorias_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoriaSpinner.setAdapter(adapter);
 
-        btn_iniciar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validar();
+        guardarBtn.setOnClickListener(v -> {
+            String nombre = nombreEditText.getText().toString();
+            String edad = edadEditText.getText().toString();
+            String categoria = categoriaSpinner.getSelectedItem().toString();
 
-            }
+            SharedPreferences prefs = getSharedPreferences("datos_usuario", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("nombre", nombre);
+            editor.putString("edad", edad);
+            editor.putString("categoria", categoria);
+            editor.apply();
+
+            Intent intent = new Intent(MainActivity.this, SplashScreen.class);
+            startActivity(intent);
+            finish();
         });
-
-        private void validar(){
-            String usuario;
-
-            usuario =edt_usuario.getText().toString();
-
-        }
-
-
-
-
-        };
     }
+}
